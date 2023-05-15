@@ -7,13 +7,21 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+h3{
+    font-size: 1.5em;
+}
+
+span{
+    font-size: 1.2em;
+}
+
 .title{
     width: 100%;
-    margin-top: 5%;
+    margin-top: 2%;
     text-align: center;
 }
 
-.score, .clicks, .record{
+.score, .clicks, .record, .reset{
     margin-top: 2%;
     text-align: center;
 }
@@ -48,4 +56,11 @@
 
 .back{
     border: 1px #00000030 solid;
+}
+
+#resetBtn{
+    width: 5em;
+    font-size: 1.5em;
+    padding: 3px;
+    border-radius: 25px;
 }
