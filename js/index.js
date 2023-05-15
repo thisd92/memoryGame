@@ -1,105 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
+let points = 0;
+let counter = 0;
+let record;
 
-  const cards = [
-    {
-      name: 'inter',
-      path: '../assets/imgs/internacional.png'
-    },
-    {
-      name: 'palmeiras',
-      path: '../assets/imgs/palmeiras.png'
-    },
-    {
-      name: 'santos',
-      path: '../assets/imgs/santos.png'
-    },
-    {
-      name: 'sao_paulo',
-      path: '../assets/imgs/sao-paulo.png'
-    },
-    {
-      name: 'corinthians',
-      path: '../assets/imgs/corinthians.png'
-    },
-    {
-      name: 'flamengo',
-      path: '../assets/imgs/flamengo.png'
-    },
-    {
-      name: 'gremio',
-      path: '../assets/imgs/gremio.png'
-    },
-    {
-      name: 'athletico',
-      path: '../assets/imgs/atletico.png'
-    },
-    {
-      name: 'vasco',
-      path: '../assets/imgs/vasco.png'
+const counterElement = document.getElementById('clicks');
+counterElement.textContent = counter;
+
+const resultElement = document.getElementById('result');
+resultElement.textContent = points;
+
+const recordElement = document.getElementById('record');
+
+const btnReset = document.getElementById("resetBtn");
+btnReset.addEventListener('click', reset)
+
+function reset() {
+  window.location.reload();
+}
+
+function setLocalStorage(){
+  if(localStorage.getItem("record")){
+    if(localStorage.getItem("record") > counter){
+      localStorage.setItem("record", counter)
     }
-  ];
-
-  const board = document.querySelector('.container-cards');
-  const cardsMatched = [];
-
-  function createCard(card, index) {
-    const cardGame = document.createElement('img');
-    cardGame.setAttribute('src', '../assets/imgs/logo-brasileirao.png');
-    cardGame.setAttribute('data-id', index);
-    cardGame.className = 'back';
-    board.appendChild(cardGame);
-    cardGame.addEventListener('click', flipCard);
+  } else {
+    localStorage.setItem("record", counter)
   }
+}
 
-  let flippedCards = [];
-
-  function flipCard() {
-    counter += 1;
-    counterElement.textContent = counter;
-    const cardId = Number(this.getAttribute('data-id'));
-    this.setAttribute('src', cards[cardId].path);
-    if (flippedCards.length === 2 || cardsMatched.includes(cardId)) {
-      return;
-    }
-    flippedCards.push({ cardId, element: this });
-    if (flippedCards.length === 2) {
-      setTimeout(() => {
-        if (flippedCards[0].cardId === flippedCards[1].cardId) {
-          flippedCards.forEach(({ element }) => {
-            element.setAttribute('src', '../assets/imgs/Green-Check.png');
-            element.removeEventListener('click', flipCard);
-            cardsMatched.push(flippedCards[0].cardId);
-            points += 0.5;
-            resultElement.textContent = points;
-            if (points === 8) {
-              alert("Você Ganhou!")
-
-            }
-          });
-        } else {
-          flippedCards.forEach(({ element }) => {
-            element.setAttribute('src', '../assets/imgs/logo-brasileirao.png');
-          });
-        }
-        flippedCards = [];
-      }, 500);
-    }
+function getLocalStorage(){
+  if(localStorage.getItem("record") != 0){
+    record = localStorage.getItem("record")
+    recordElement.textContent = record;
   }
-
-  // Embaralhar as cartas
-  function shuffleCards(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      array[i].parentNode.insertBefore(array[j], array[i].nextSibling);
-    }
-  }
-
-  cards.forEach((card, index) => {
-    createCard(card, index);
-    createCard(card, index);
-  });
-
-  const cardsElements = document.querySelectorAll('.back');
-  shuffleCards(cardsElements);
-
-});
+}
