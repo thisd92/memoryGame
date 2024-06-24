@@ -24,7 +24,7 @@ Para executar o jogo localmente, você precisará apenas de um navegador da web.
 
 1. Clone o repositório para sua máquina local:
    ```
-   git clone https://github.com/seu-usuario/memoryGame.git
+   git clone https://github.com/thisd92/memoryGame.git
    ```
 2. Clone o repositório para sua máquina local:
   ```
